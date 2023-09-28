@@ -1,33 +1,16 @@
-import tkinter as tk
-from tkinter import messagebox
+import time
 
-def start_timer():
-    minutes = int(entry.get())
+def focus_timer(minutes):
     seconds = minutes * 60
-    countdown(seconds)
-
-def countdown(seconds):
-    if seconds >= 0:
+    while seconds > 0:
         mins, secs = divmod(seconds, 60)
-        timer_label.config(text="{:02d}:{:02d}".format(mins, secs))
-        root.after(1000, countdown, seconds-1)
-        # 每秒钟更新剩余时间并递归调用自身
-    else:
-        messagebox.showinfo("时间到！", "专注时间已结束！")
+        timer = "{:02d}:{:02d}".format(mins, secs)
+        print(timer, end="\r")
+        time.sleep(1)
+        seconds -= 1
 
-root = tk.Tk()
-root.title("专注时钟")
+    print("时间到！")
 
-entry_label = tk.Label(root, text="请输入专注时间（分钟）：")
-entry_label.pack()
-
-entry = tk.Entry(root)
-entry.pack()
-
-start_button = tk.Button(root, text="开始", command=start_timer)
-start_button.pack()
-
-timer_label = tk.Label(root, font=("Helvetica", 36), pady=20)
-timer_label.pack()
-
-root.mainloop()
+if __name__ == "__main__":
+    minutes = int(input("请输入要专注的分钟数："))
+    focus_timer(minutes)

@@ -2,20 +2,15 @@ import time
 
 def focus_timer(minutes):
     seconds = minutes * 60
-    start_time = time.time()
-    end_time = start_time + seconds
-    
-    print(f"Focus timer set for {minutes} minutes.")
-    
-    while time.time() < end_time:
-        remaining_time = int(end_time - time.time())
-        minutes_left = remaining_time // 60
-        seconds_left = remaining_time % 60
-        
-        print(f"Time left: {minutes_left:02d}:{seconds_left:02d}", end="\r", flush=True)
+    while seconds:
+        mins, secs = divmod(seconds, 60)
+        timer = "{:02d}:{:02d}".format(mins, secs)
+        print(timer, end="\r")
         time.sleep(1)
-    
-    print("\nFocus timer expired. Time to take a break!")
+        seconds -= 1
 
-# 设置专注时间为25分钟
-focus_timer(25)
+    print("时间到！")
+
+if __name__ == "__main__":
+    minutes = int(input("请输入要专注的分钟数："))
+    focus_timer(minutes)

@@ -1,13 +1,14 @@
 import time
+import datetime
 
 def focus_timer(minutes):
-    seconds = minutes * 60
-    while seconds:
-        mins, secs = divmod(seconds, 60)
-        timeformat = '{:02d}:{:02d}'.format(mins, secs)
-        print(timeformat, end='\r')
+    # 计算结束时间
+    end_time = datetime.datetime.now() + datetime.timedelta(minutes=minutes)
+
+    while datetime.datetime.now() < end_time:
+        remaining_time = end_time - datetime.datetime.now()
+        print(f"剩余时间: {remaining_time}", end='\r')
         time.sleep(1)
-        seconds -= 1
 
     print("时间到！专注时间已结束。")
 

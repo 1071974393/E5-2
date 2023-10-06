@@ -1,39 +1,19 @@
-import tkinter as tk
 import time
 
-# 创建一个窗口
-window = tk.Tk()
-window.title("专注时钟")
+def focus_timer(duration_minutes):
+    duration_seconds = duration_minutes * 60
+    end_time = time.time() + duration_seconds
 
-# 设置初始时间（以秒为单位）
-remaining_time = 25 * 60  # 25分钟
+    print(f"专注倒计时开始，持续 {duration_minutes} 分钟.")
 
-# 显示剩余时间的标签
-time_label = tk.Label(window, text="", font=("Helvetica", 48))
-time_label.pack()
+    while time.time() < end_time:
+        remaining_seconds = int(end_time - time.time())
+        minutes, seconds = divmod(remaining_seconds, 60)
+        print(f"剩余时间: {minutes:02d}:{seconds:02d}", end='\r')
+        time.sleep(1)
 
-# 更新剩余时间的函数
-def update_time():
-    global remaining_time
-    if remaining_time > 0:
-        minutes = remaining_time // 60
-        seconds = remaining_time % 60
-        time_label.config(text=f"{minutes:02d}:{seconds:02d}")
-        remaining_time -= 1
-        window.after(1000, update_time)  # 每秒更新一次
-    else:
-        time_label.config(text="时间到！")
+    print("\n时间到！专注结束。")
 
-# 开始计时
-def start_timer():
-    global remaining_time
-    if remaining_time > 0:
-        start_button.config(state=tk.DISABLED)
-        update_time()
-
-# 创建开始按钮
-start_button = tk.Button(window, text="开始", command=start_timer)
-start_button.pack()
-
-# 运行窗口
-window.mainloop()
+if __name__ == "__main__":
+    focus_duration = 25  # 专注时间（分钟）
+    focus_timer(focus_duration)

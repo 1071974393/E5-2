@@ -1,19 +1,21 @@
 import time
+import winsound
 
-def focus_timer(duration_minutes):
-    duration_seconds = duration_minutes * 60
-    end_time = time.time() + duration_seconds
+def start_focus_timer(duration_in_minutes):
+    # 将输入的分钟数转换为秒数
+    duration_in_seconds = duration_in_minutes * 60
 
-    print(f"专注倒计时开始，持续 {duration_minutes} 分钟.")
+    print("开始专注，持续 {} 分钟...".format(duration_in_minutes))
 
-    while time.time() < end_time:
-        remaining_seconds = int(end_time - time.time())
-        minutes, seconds = divmod(remaining_seconds, 60)
-        print(f"剩余时间: {minutes:02d}:{seconds:02d}", end='\r')
-        time.sleep(1)
+    # 等待指定时间
+    time.sleep(duration_in_seconds)
 
-    print("\n时间到！专注结束。")
+    # 播放提示音
+    frequency = 1500  # 声音频率
+    duration = 1000   # 声音持续时间
+    winsound.Beep(frequency, duration)
 
-if __name__ == "__main__":
-    focus_duration = 25  # 专注时间（分钟）
-    focus_timer(focus_duration)
+    print("专注时间到！")
+
+# 以25分钟为一段时间进行专注
+start_focus_timer(25)

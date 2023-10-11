@@ -1,41 +1,19 @@
-import tkinter as tk
-from tkinter import messagebox
 import time
 
-# 创建主窗口
-root = tk.Tk()
-root.title("专注时钟")
+def focus_timer(duration):
+    print("开始专注...")
+    end_time = time.time() + duration * 60
+    while time.time() < end_time:
+        remaining_time = int(end_time - time.time())
+        mins, secs = divmod(remaining_time, 60)
+        timer_display = "{:02d}:{:02d}".format(mins, secs)
+        print(timer_display, end="\r")
+        time.sleep(1)
+    print("专注时间结束！")
 
-# 设置初始时间（以秒为单位）
-initial_time = 25 * 60  # 25分钟
+# 设置专注时长（以分钟为单位）
+focus_duration = 25
 
-# 创建计时器变量
-current_time = tk.StringVar()
-current_time.set(time.strftime("%M:%S", time.gmtime(initial_time)))
+# 启动专注时钟
+focus_timer(focus_duration)
 
-# 更新时间显示
-def update_time():
-    global initial_time
-    if initial_time > 0:
-        initial_time -= 1
-        current_time.set(time.strftime("%M:%S", time.gmtime(initial_time)))
-        root.after(1000, update_time)
-    else:
-        messagebox.showinfo("时间到", "休息一下！")
-        initial_time = 25 * 60
-        current_time.set(time.strftime("%M:%S", time.gmtime(initial_time)))
-
-# 创建显示时间的标签
-time_label = tk.Label(root, textvariable=current_time, font=("Helvetica", 48))
-time_label.pack(pady=20)
-
-# 创建开始按钮
-start_button = tk.Button(root, text="开始", command=update_time)
-start_button.pack()
-
-# 创建退出按钮
-quit_button = tk.Button(root, text="退出", command=root.quit)
-quit_button.pack()
-
-# 运行主循环
-root.mainloop()

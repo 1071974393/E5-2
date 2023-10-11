@@ -1,19 +1,14 @@
 import time
 
-def focus_timer(duration):
-    print("开始专注...")
-    end_time = time.time() + duration * 60
-    while time.time() < end_time:
-        remaining_time = int(end_time - time.time())
-        mins, secs = divmod(remaining_time, 60)
-        timer_display = "{:02d}:{:02d}".format(mins, secs)
-        print(timer_display, end="\r")
-        time.sleep(1)
-    print("专注时间结束！")
+def focus_timer(duration_in_minutes):
+    try:
+        duration_in_seconds = duration_in_minutes * 60
+        print(f"专注时钟启动，将持续 {duration_in_minutes} 分钟。")
+        time.sleep(duration_in_seconds)
+        print("专注时钟结束！")
+    except KeyboardInterrupt:
+        print("\n专注时钟已中断。")
 
-# 设置专注时长（以分钟为单位）
-focus_duration = 25
-
-# 启动专注时钟
-focus_timer(focus_duration)
-
+if __name__ == "__main__":
+    minutes = int(input("请输入专注时钟的持续时间（分钟）："))
+    focus_timer(minutes)

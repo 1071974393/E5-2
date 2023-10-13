@@ -1,19 +1,45 @@
 import time
-import os
+import tkinter as tk
 
-def focus_timer(duration_in_minutes):
-    duration_in_seconds = duration_in_minutes * 60
-    while duration_in_seconds:
-        mins, secs = divmod(duration_in_seconds, 60)
-        timeformat = f"{mins:02d}:{secs:02d}"
-        os.system("clear")  # For Unix/Linux
-        # os.system("cls")  # For Windows
-        print(f"专注时钟剩余时间: {timeformat}", end="\r")
-        time.sleep(1)
-        duration_in_seconds -= 1
+def start_timer():
+    global is_running
+    is_running = True
+    update_timer()
 
-    print("\n专注时钟结束！")
+def stop_timer():
+    global is_running
+    is_running = False
 
-if __name__ == "__main__":
-    minutes = int(input("请输入专注时钟的持续时间（分钟）："))
-    focus_timer(minutes)
+def reset_timer():
+    global is_running
+    is_running = False
+    elapsed_time.set(25 * 60)
+
+def update_timer():
+    if is_running and elapsed_time.get() > 0:
+        elapsed_time.set(elapsed_time.get() - 1)
+        root.after(1000, update_timer)
+    elif elapsed_time.get() == 0:
+        is_running = False
+        # 在这里可以添加专注结束的提醒
+
+is_running = False
+
+root = tk.Tk()
+root.title("专注时钟")
+
+elapsed_time = tk.IntVar()
+elapsed_time.set(25 * 60)
+
+time_label = tk.Label(root, textvariable=elapsed_time, font=("Helvetica", 48))
+time_label.pack()
+
+start_button = tk.Button(root, text="开始", command=start_timer)
+stop_button = tk.Button(root, text="停止", command=stop_timer)
+reset_button = tk.Button(root, text="重置", command=reset_timer)
+
+start_button.pack()
+stop_button.pack()
+reset_button.pack()
+
+root.mainloop()

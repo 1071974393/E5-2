@@ -10,7 +10,6 @@ def focus_timer(duration, task_name):
     print(f"{task_name}专注时钟结束")
 
 if __name__ == "__main__":
-    work_duration = 25 * 60  # 25分钟工作时长
-    work_task_name = "工作"  # 任务名称
-    focus_timer(work_duration, work_task_name)
-
+    break_duration = 5 * 60  # 5分钟休息时长
+    break_task_name = "休息"  # 任务名称
+    focus_timer(break_duration, break_task_name)

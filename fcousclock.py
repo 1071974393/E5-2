@@ -1,45 +1,14 @@
 import time
-import tkinter as tk
 
-def start_timer():
-    global is_running
-    is_running = True
-    update_timer()
+def focus_timer(duration):
+    print("专注时钟开始")
+    for remaining in range(duration, 0, -1):
+        minutes, seconds = divmod(remaining, 60)
+        timeformat = f"{minutes:02d}:{seconds:02d}"
+        print(timeformat, end='\r')
+        time.sleep(1)
+    print("专注时钟结束")
 
-def stop_timer():
-    global is_running
-    is_running = False
-
-def reset_timer():
-    global is_running
-    is_running = False
-    elapsed_time.set(25 * 60)
-
-def update_timer():
-    if is_running and elapsed_time.get() > 0:
-        elapsed_time.set(elapsed_time.get() - 1)
-        root.after(1000, update_timer)
-    elif elapsed_time.get() == 0:
-        is_running = False
-        # 在这里可以添加专注结束的提醒
-
-is_running = False
-
-root = tk.Tk()
-root.title("专注时钟")
-
-elapsed_time = tk.IntVar()
-elapsed_time.set(25 * 60)
-
-time_label = tk.Label(root, textvariable=elapsed_time, font=("Helvetica", 48))
-time_label.pack()
-
-start_button = tk.Button(root, text="开始", command=start_timer)
-stop_button = tk.Button(root, text="停止", command=stop_timer)
-reset_button = tk.Button(root, text="重置", command=reset_timer)
-
-start_button.pack()
-stop_button.pack()
-reset_button.pack()
-
-root.mainloop()
+if __name__ == "__main__":
+    focus_duration = 25 * 60  # 25分钟，可以根据需要调整
+    focus_timer(focus_duration)

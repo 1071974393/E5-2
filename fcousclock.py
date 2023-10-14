@@ -1,24 +1,26 @@
 import time
 
-def focus_timer(minutes):
-    seconds = minutes * 60
-    while seconds:
-        mins, secs = divmod(seconds, 60)
-        timeformat = '{:02d}:{:02d}'.format(mins, secs)
+def focus_timer(focus_minutes, break_minutes):
+    focus_seconds = focus_minutes * 60
+    break_seconds = break_minutes * 60
+
+    while focus_seconds:
+        mins, secs = divmod(focus_seconds, 60)
+        timeformat = 'Focus: {:02d}:{:02d}'.format(mins, secs)
         print(timeformat, end='\r')
         time.sleep(1)
-        seconds -= 1
-    print("专注时间到！")
+        focus_seconds -= 1
+
+    print("专注时间结束！")
+    
+    while break_seconds:
+        mins, secs = divmod(break_seconds, 60)
+        timeformat = 'Break: {:02d}:{:02d}'.format(mins, secs)
+        print(timeformat, end='\r')
+        time.sleep(1)
+        break_seconds -= 1
 
 if __name__ == "__main__":
-    tasks = ["任务1", "任务2", "任务3", "任务4"]
-    focus_times = [25, 30, 20, 35]  # 每个任务的专注时间（分钟）
-
-    for i in range(len(tasks)):
-        task_name = tasks[i]
-        focus_minutes = focus_times[i]
-        print(f"开始专注于任务: {task_name}")
-        focus_timer(focus_minutes)
-        print(f"任务: {task_name} 完成\n")
-
-    print("所有任务已完成！")
+    focus_minutes = 25  # 设置专注时间为25分钟
+    break_minutes = 5   # 设置休息时间为5分钟
+    focus_timer(focus_minutes, break_minutes)

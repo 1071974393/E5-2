@@ -11,5 +11,14 @@ def focus_timer(minutes):
     print("专注时间到！")
 
 if __name__ == "__main__":
-    focus_minutes = 25  # 设置专注时间为25分钟
-    focus_timer(focus_minutes)
+    tasks = ["任务1", "任务2", "任务3", "任务4"]
+    focus_times = [25, 30, 20, 35]  # 每个任务的专注时间（分钟）
+
+    for i in range(len(tasks)):
+        task_name = tasks[i]
+        focus_minutes = focus_times[i]
+        print(f"开始专注于任务: {task_name}")
+        focus_timer(focus_minutes)
+        print(f"任务: {task_name} 完成\n")
+
+    print("所有任务已完成！")

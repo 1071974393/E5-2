@@ -1,11 +1,16 @@
 import time
 
-def countdown(n):
-    while n > 0:
-        print(n)
-        n -= 1
+def focus_timer(total_time, break_time):
+    while total_time > 0:
+        print(f"专注时间剩余：{total_time} 秒")
         time.sleep(1)
-    print("时间到！")
+        total_time -= 1
+        if total_time == 0:
+            print("休息时间！")
+            time.sleep(break_time)
+            total_time = int(input("请输入下一轮专注时间（秒）："))
 
-n = 25 # 计时器时间，单位为分钟
-countdown(n*60) # 将时间换算为秒数传入计时器函数中
+if __name__ == "__main__":
+    total_time = int(input("请输入专注时间（秒）："))
+    break_time = int(input("请输入休息时间（秒）："))
+    focus_timer(total_time, break_time)

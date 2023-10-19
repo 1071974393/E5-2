@@ -18,6 +18,7 @@ def start_timer():
 
 window = tk.Tk()
 window.title("专注时钟")
+window.geometry("300x150")
 
 instruction_label = tk.Label(window, text="请输入专注的分钟数：")
 instruction_label.pack(pady=10)
@@ -25,7 +26,7 @@ instruction_label.pack(pady=10)
 entry = tk.Entry(window)
 entry.pack()
 
-start_button = tk.Button(window, text="开始专注", command=start_timer)
+start_button = tk.Button(window, text="开始", command=start_timer)
 start_button.pack(pady=10)
 
 timer_label = tk.Label(window, text="", font=("Helvetica", 48))

@@ -1,13 +1,14 @@
 import time
 
-def pomodoro_timer(minutes):
+def focus_timer(minutes):
     seconds = minutes * 60
-    while seconds > 0:
-        print(f"Remaining time: {seconds // 60} minutes {seconds % 60} seconds")
+    for remaining_time in range(seconds, 0, -1):
+        mins, secs = divmod(remaining_time, 60)
+        timeformat = '{:02d}:{:02d}'.format(mins, secs)
+        print(f"Focus Timer: {timeformat}", end='\r')
         time.sleep(1)
-        seconds -= 1
-    print("Time's up!")
+    print("\nTime's up! Take a break.")
 
-pomodoro_timer(25)
-
-
+if __name__ == "__main__":
+    minutes = int(input("请输入专注时长（分钟）: "))
+    focus_timer(minutes)

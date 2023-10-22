@@ -12,5 +12,5 @@ def concentration_timer(minutes):
 
     print("Time's up! Focus session completed.")
 
-# 设置专注时长为25分钟（调整为你需要的时间）
-concentration_timer(25)
+# 调用函数，开始20分钟的专注时钟
+concentration_timer(20)

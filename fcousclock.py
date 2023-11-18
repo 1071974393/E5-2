@@ -1,42 +1,47 @@
-下面是另一个专注时钟的Python指令，使用了time库和tkinter图形界面库：
-
-```python
 import tkinter as tk
-import time
+import asyncio
+
+
+async def count_down(seconds, label):
+    while seconds > 0:
+        mins, secs = divmod(seconds, 60)
+        label.config(text='{:02d}:{:02d}'.format(mins, secs))
+        await asyncio.sleep(1)
+        seconds -= 1
+    label.config(text="Time's up!")
 
 
 def start_timer(minutes):
-    seconds = minutes * 60
+    loop = asyncio.get_event_loop()
 
-    def count_down():
-        nonlocal seconds
-        if seconds > 0:
-            mins, secs = divmod(seconds, 60)
-            timer_label.config(text='{:02d}:{:02d}'.format(mins, secs))
-            seconds -= 1
-            timer_label.after(1000, count_down)
-        else:
-            timer_label.config(text="Time's up!")
-            root.bell()  # 发出提示音
+    def on_start():
+        loop.create_task(count_down(minutes * 60, timer_label))
+
+    def on_exit():
+        loop.stop()
+        window.destroy()
 
     # 创建窗口
-    root = tk.Tk()
-    root.title("Focus Timer")
-    root.geometry("200x100")
+    window = tk.Tk()
+    window.title("Focus Timer")
+    window.protocol("WM_DELETE_WINDOW", on_exit)
 
-    # 创建倒计时标签
-    timer_label = tk.Label(root, text='', font=('Arial', 30))
-    timer_label.pack(pady=10)
+    # 创建计时标签
+    timer_label = tk.Label(window, text='', font=('Arial', 30))
+    timer_label.pack(expand=True)
 
-    # 启动倒计时
-    count_down()
+    # 创建开始和退出按钮
+    button_frame = tk.Frame(window)
+    button_frame.pack(expand=True)
 
-    # 让窗口始终处于最前
-    root.attributes("-topmost", True)
+    start_button = tk.Button(button_frame, text="Start", command=on_start)
+    start_button.pack(side=tk.LEFT, padx=5)
 
-    # 运行窗口
-    root.mainloop()
+    exit_button = tk.Button(button_frame, text="Exit", command=on_exit)
+    exit_button.pack(side=tk.RIGHT, padx=5)
 
+    loop.run_forever()
+    loop.close()
 
 start_timer(25)  # 25分钟的专注时钟
 ```

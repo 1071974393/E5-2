@@ -1,18 +1,12 @@
-以下是一个生成专注时钟的 Python 指令示例：
-
-```python
 import time
+import winsound
 
 def focus_timer(minutes):
     seconds = minutes * 60
-    while seconds > 0:
-        print(f"Remaining Time: {seconds // 60:02d}:{seconds % 60:02d}", end="\r")
+    for i in range(seconds, 0, -1):
+        print(f"Time remaining: {i//60} minutes {i%60} seconds", end='\r')
         time.sleep(1)
-        seconds -= 1
-    print("Focus time is over!")
+    print("Time's up!")
+    winsound.Beep(1000, 1000)  # Beep for 1 second
 
-focus_time = int(input("Enter the focus time in minutes: "))
-focus_timer(focus_time)
-```
-
-这段代码会要求用户输入专注的时间（以分钟为单位），然后启动一个专注时钟，每分钟倒数一次，并在达到指定时间后显示 "Focus time is over!"。
+focus_timer(25)  # Start a 25-minute focus session

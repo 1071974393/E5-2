@@ -1,16 +1,14 @@
-```python
 import time
+import winsound
 
 def focus_timer(minutes):
     seconds = minutes * 60
-    print(f"Focus timer set for {minutes} minutes.")
-    while seconds > 0:
-        m, s = divmod(seconds, 60)
-        timeformat = '{:02d}:{:02d}'.format(m, s)
-        print("Time remaining:", timeformat, end='\r')
-        time.sleep(1)
-        seconds -= 1
-    print("\nTime's up! Take a break.")
+    print(f"专注时间为 {minutes} 分钟")
+    time.sleep(seconds)
+    winsound.Beep(1000, 1000)  # 响铃提醒
+    print("专注时间已结束！")
 
-focus_timer(25)  # Start a 25-minute focus session
-```
+# 设置专注时间长度（以分钟为单位）
+focus_time = 25
+
+focus_timer(focus_time)

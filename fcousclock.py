@@ -1,14 +1,16 @@
 import time
-import winsound
+import tkinter as tk
+from tkinter import messagebox
 
-def focus_timer(minutes):
+def start_focus_timer(minutes):
     seconds = minutes * 60
-    print(f"专注时间为 {minutes} 分钟")
     time.sleep(seconds)
-    winsound.Beep(1000, 1000)  # 响铃提醒
-    print("专注时间已结束！")
+    root = tk.Tk()
+    root.withdraw()
+    messagebox.showinfo("专注提醒", f"专注时间已结束！")
+    root.destroy()
 
 # 设置专注时间长度（以分钟为单位）
 focus_time = 25
 
-focus_timer(focus_time)
+start_focus_timer(focus_time)

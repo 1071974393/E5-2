@@ -12,7 +12,9 @@ def focus_timer(minutes):
             print("Focus timer finished!")
             break
         
-        print(f"Time remaining: {int(remaining_time/60)} minutes {int(remaining_time%60)} seconds")
+        minutes_remaining = int(remaining_time / 60)
+        seconds_remaining = int(remaining_time % 60)
+        print(f"Time remaining: {minutes_remaining} minutes {seconds_remaining} seconds")
         time.sleep(1)
 
-focus_timer(25)
+focus_timer(30)

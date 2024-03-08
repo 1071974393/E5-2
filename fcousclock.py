@@ -14,7 +14,18 @@ def focus_timer(minutes):
         
         minutes_remaining = int(remaining_time / 60)
         seconds_remaining = int(remaining_time % 60)
-        print(f"Time remaining: {minutes_remaining} minutes {seconds_remaining} seconds")
+        
+        if minutes_remaining < 10:
+            mins_display = f"0{minutes_remaining}"
+        else:
+            mins_display = str(minutes_remaining)
+            
+        if seconds_remaining < 10:
+            secs_display = f"0{seconds_remaining}"
+        else:
+            secs_display = str(seconds_remaining)
+            
+        print(f"Time remaining: {mins_display}:{secs_display}")
         time.sleep(1)
 
-focus_timer(30)
+focus_timer(45)
